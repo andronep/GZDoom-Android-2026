@@ -16,7 +16,7 @@ val EXCLUDED_IWAD_FILES = setOf(
 )
 
 /**
- * Scans the game-data directory for selectable IWADs (`.wad`/`.pk3`/`.pk7`, minus engine
+ * Scans the game-data directory for selectable IWADs (`.wad`/`.pk3`/`.pk7`/`.ipk3`, minus engine
  * files), returned as the raw filesystem order — the legacy int `last_iwad` indexes into
  * this. Sort with `.sortedBy { it.file.lowercase() }` for display.
  */
@@ -25,7 +25,7 @@ fun scanIwads(baseDir: String): List<WadEntry> =
         .filter { !it.isDirectory }
         .filter { f ->
             val name = f.name.lowercase()
-            (name.endsWith(".wad") || name.endsWith(".pk3") || name.endsWith(".pk7")) &&
+            (name.endsWith(".wad") || name.endsWith(".pk3") || name.endsWith(".pk7") || name.endsWith(".ipk3")) &&
                 name !in EXCLUDED_IWAD_FILES
         }
         .map { WadEntry(it.name, it.length()) }
