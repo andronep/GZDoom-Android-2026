@@ -64,7 +64,8 @@ enum EDepthFunc
 {
 	DF_Less,
 	DF_LEqual,
-	DF_Always
+	DF_Always,
+	DF_Greater
 };
 
 enum EStencilFlags
