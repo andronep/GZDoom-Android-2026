@@ -94,7 +94,7 @@ CUSTOM_CVAR(Int, gl_fuzztype, 8, CVAR_ARCHIVE)
 //
 //==========================================================================
 
-void HWSprite::DrawSprite(HWDrawInfo *di, FRenderState &state, bool translucent)
+void HWSprite::DrawSprite(HWDrawInfo *di, FRenderState &state, bool translucent, bool updateModelAnimation)
 {
 	bool additivefog = false;
 	bool foglayer = false;
@@ -305,7 +305,7 @@ void HWSprite::DrawSprite(HWDrawInfo *di, FRenderState &state, bool translucent)
 					state.SetDynLight(probe->Red, probe->Green, probe->Blue);
 			}
 
-			if(actor && (actor->flags9 & MF9_DECOUPLEDANIMATIONS))
+			if (updateModelAnimation && actor && (actor->flags9 & MF9_DECOUPLEDANIMATIONS))
 			{
 				IFVIRTUALPTR(actor, AActor, AnimateBones)
 				{
