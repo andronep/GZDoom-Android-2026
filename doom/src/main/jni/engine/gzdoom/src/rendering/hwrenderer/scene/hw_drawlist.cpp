@@ -812,9 +812,26 @@ void HWDrawList::DoDraw(HWDrawInfo *di, FRenderState &state, bool translucent, i
 
 	case DrawType_SPRITE:
 		{
-			HWSprite * s= sprites[drawitems[i].index];
+			HWSprite * s = sprites[drawitems[i].index];
 			RenderSprite.Clock();
-			s->DrawSprite(di, state, translucent);
+
+			// Draw monsters twice: hidden fragments first, then visible fragments.
+			// Keeping both draws at the same sorted-list position preserves blending order.
+			if (translucent && s->actor != nullptr && s->particle == nullptr &&
+				(s->actor->flags3 & MF3_ISMONSTER) && !(s->actor->flags & MF_FRIENDLY))
+			{
+				HWSprite throughWallSprite = *s;
+				state.SetDepthFunc(DF_Greater);
+				throughWallSprite.DrawSprite(di, state, translucent, true);
+
+				state.SetDepthFunc(DF_LEqual);
+				s->DrawSprite(di, state, translucent, false);
+			}
+			else
+			{
+				s->DrawSprite(di, state, translucent);
+			}
+
 			RenderSprite.Unclock();
 		}
 		break;
