@@ -563,7 +563,7 @@ void FGLRenderState::SetDepthMask(bool on)
 
 void FGLRenderState::SetDepthFunc(int func)
 {
-	static int df2gl[] = { GL_LESS, GL_LEQUAL, GL_ALWAYS };
+	static int df2gl[] = { GL_LESS, GL_LEQUAL, GL_ALWAYS, GL_GREATER };
 	glDepthFunc(df2gl[func]);
 }
 
