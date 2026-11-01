@@ -417,7 +417,7 @@ public:
 	void ProcessParticle(HWDrawInfo *di, particle_t *particle, sector_t *sector, class DVisualThinker *spr);//, int shade, int fakeside)
 	void AdjustVisualThinker(HWDrawInfo *di, DVisualThinker *spr, sector_t *sector);
 
-	void DrawSprite(HWDrawInfo *di, FRenderState &state, bool translucent);
+	void DrawSprite(HWDrawInfo *di, FRenderState &state, bool translucent, bool updateModelAnimation = true);
 };
 
 
